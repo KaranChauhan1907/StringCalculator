@@ -17,4 +17,9 @@ public class TestStringCalculator {
 		Assert.assertEquals(stringcalculator.Add(""), 0);
 	}
 	
+	@Test
+	public void ReturnValueOnSingleNumber() {
+		Assert.assertEquals(stringcalculator.Add("1"),1);
+	}
+	
 }
