@@ -32,4 +32,9 @@ public class TestStringCalculator {
 		Assert.assertEquals(stringcalculator.Add("1,2,3,4"), 10);
 	}
 	
+	@Test
+	public void ReturnSumOnNewLine(){
+		Assert.assertEquals(stringcalculator.Add("1\n2,3"), 6);
+	}
+	
 }
