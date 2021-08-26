@@ -22,4 +22,14 @@ public class TestStringCalculator {
 		Assert.assertEquals(stringcalculator.Add("1"),1);
 	}
 	
+	@Test
+	public void ReturnSumOnTwoNumbers() {
+		Assert.assertEquals(stringcalculator.Add("1,2"), 3);
+	}
+	
+	@Test
+	public void ReturnSumOnMoreNumbers() {
+		Assert.assertEquals(stringcalculator.Add("1,2,3,4"), 10);
+	}
+	
 }

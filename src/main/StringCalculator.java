@@ -8,7 +8,11 @@ public class StringCalculator {
 			return 0;
 		}
 		else {
-			return toInt(numbers);
+			String[] Splitted_array = numbers.split(",");
+			int Sum=0;
+			for(String num : Splitted_array)
+				Sum = Sum + toInt(num);
+			return Sum;
 		}
 	}
 	
