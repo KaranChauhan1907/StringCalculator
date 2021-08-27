@@ -42,6 +42,15 @@ public class TestStringCalculator {
 		Assert.assertEquals(stringcalculator.Add("//;\n1;2"), 3);
 	}
 	
+	@Test
+	public void TestNegativeValues() {
+		try {
+			stringcalculator.Add("1,2,-3");
+		}
+		catch(IllegalArgumentException e){
+			Assert.assertEquals(e.getMessage(), "negatives not allowed: -3");
+		}
+	}
 	
 	
 	

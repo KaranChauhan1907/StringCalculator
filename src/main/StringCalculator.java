@@ -8,10 +8,19 @@ public class StringCalculator {
 			return 0;
 		}
 		else {
-			String[] Splitted_array = Splitter(numbers);
-			return calculateSumOfNumbers(Splitted_array);
+			String[] Splitted_Array = Splitter(numbers);
+			throwExceptionIfNegative(Splitted_Array);
+			return calculateSumOfNumbers(Splitted_Array);
 		}
 	}
+	
+	private void throwExceptionIfNegative(String []arrayOfNumbers) {
+		for(String number : arrayOfNumbers) {
+			if (toInt(number) < 0)
+					throw new IllegalArgumentException("negatives not allowed: "+ toInt(number));
+		}
+	}
+	
 	private String[] Splitter(String numbers) {
 		String delimiter = ",";
 		if (numbers.matches("/{2}(\\D)\n(.*)")) {
