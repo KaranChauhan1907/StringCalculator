@@ -3,8 +3,15 @@ import java.util.ArrayList;
 
 public class StringCalculator {
 
+	private static int count=0;
+	
+	public int getCalledCount() {
+		return count;
+	}
+	
 	public int Add(String numbers) {
 		
+		count = count + 1;
 		if(numbers.isEmpty()) {
 			return 0;
 		}
