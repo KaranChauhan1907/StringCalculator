@@ -33,8 +33,16 @@ public class TestStringCalculator {
 	}
 	
 	@Test
-	public void ReturnSumOnNewLine(){
+	public void AllowNewLineAsDelimiter () {
 		Assert.assertEquals(stringcalculator.Add("1\n2,3"), 6);
 	}
+	
+	@Test
+	public void AllowDifferentDelimiters() {
+		Assert.assertEquals(stringcalculator.Add("//;\n1;2"), 3);
+	}
+	
+	
+	
 	
 }
