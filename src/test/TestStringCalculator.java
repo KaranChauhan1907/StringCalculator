@@ -52,6 +52,15 @@ public class TestStringCalculator {
 		}
 	}
 	
+	@Test
+	public void TestMultipleNegativeValues() {
+		try {
+			stringcalculator.Add("-1,2,-3,4,-5");
+		}
+		catch(IllegalArgumentException e){
+			Assert.assertEquals(e.getMessage(), "negatives not allowed: -1,-3,-5");
+		}
+	}
 	
 	
 }

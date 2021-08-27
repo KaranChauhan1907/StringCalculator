@@ -1,10 +1,11 @@
 package main;
+import java.util.ArrayList;
 
 public class StringCalculator {
 
 	public int Add(String numbers) {
 		
-		if (numbers.isEmpty()) {
+		if(numbers.isEmpty()) {
 			return 0;
 		}
 		else {
@@ -15,25 +16,34 @@ public class StringCalculator {
 	}
 	
 	private void throwExceptionIfNegative(String []arrayOfNumbers) {
+		
+		ArrayList<String> negatives = new ArrayList<String>();
+		
 		for(String number : arrayOfNumbers) {
-			if (toInt(number) < 0)
-					throw new IllegalArgumentException("negatives not allowed: "+ toInt(number));
+			if(toInt(number) < 0)
+				negatives.add(number);
 		}
+		if(negatives.size()!=0)
+			throw new IllegalArgumentException("negatives not allowed: "+ String.join(",", negatives));
 	}
 	
 	private String[] Splitter(String numbers) {
 		String delimiter = ",";
-		if (numbers.matches("/{2}(\\D)\n(.*)")) {
+		
+		if(numbers.matches("/{2}(\\D)\n(.*)")) {
 			delimiter = Character.toString(numbers.charAt(2));
 			numbers = numbers.substring(4);
 		}
+		
 		return numbers.split("\n|"+delimiter);
 	}
 	
 	private int calculateSumOfNumbers(String []arrayOfNumbers) {
 		int Sum=0;
+		
 		for(String num : arrayOfNumbers )
 			Sum = Sum + toInt(num);
+		
 		return Sum;
 	}
 	
