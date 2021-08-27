@@ -49,7 +49,8 @@ public class StringCalculator {
 		int Sum=0;
 		
 		for(String num : arrayOfNumbers )
-			Sum = Sum + toInt(num);
+			if(toInt(num)<=1000)
+				Sum = Sum + toInt(num);
 		
 		return Sum;
 	}

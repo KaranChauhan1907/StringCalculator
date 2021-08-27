@@ -10,8 +10,7 @@ import org.junit.runners.MethodSorters;
 public class TestStringCalculator {
 
 	private StringCalculator stringcalculator;
-	private int count = 0;
-	
+
 	@Before
 	public void init() {
 		stringcalculator = new StringCalculator();
@@ -19,37 +18,37 @@ public class TestStringCalculator {
 
 	
 	@Test
-	public void _1_ReturnZeroOnEmptyString() {
+	public void ReturnZeroOnEmptyString() {
 		Assert.assertEquals(stringcalculator.Add(""), 0);
 	}
 	
 	@Test
-	public void _2_ReturnValueOnSingleNumber() {
+	public void ReturnValueOnSingleNumber() {
 		Assert.assertEquals(stringcalculator.Add("1"),1);
 	}
 	
 	@Test
-	public void _3_ReturnSumOnTwoNumbers() {
+	public void ReturnSumOnTwoNumbers() {
 		Assert.assertEquals(stringcalculator.Add("1,2"), 3);
 	}
 	
 	@Test
-	public void _4_ReturnSumOnMoreNumbers() {
+	public void ReturnSumOnMoreNumbers() {
 		Assert.assertEquals(stringcalculator.Add("1,2,3,4"), 10);
 	}
 	
 	@Test
-	public void _5_AllowNewLineAsDelimiter () {
+	public void AllowNewLineAsDelimiter () {
 		Assert.assertEquals(stringcalculator.Add("1\n2,3"), 6);
 	}
 	
 	@Test
-	public void _6_AllowDifferentDelimiters() {
+	public void AllowDifferentDelimiters() {
 		Assert.assertEquals(stringcalculator.Add("//;\n1;2"), 3);
 	}
 	
 	@Test
-	public void _7_TestNegativeValues() {
+	public void TestNegativeValues() {
 		try {
 			stringcalculator.Add("1,2,-3");
 		}
@@ -59,7 +58,7 @@ public class TestStringCalculator {
 	}
 	
 	@Test
-	public void _8_TestMultipleNegativeValues() {
+	public void TestMultipleNegativeValues() {
 		try {
 			stringcalculator.Add("-1,2,-3,4,-5");
 		}
@@ -69,8 +68,13 @@ public class TestStringCalculator {
 	}
 	
 	@Test
-	public void _9_TestGetCalledCount() {
-		Assert.assertEquals(stringcalculator.getCalledCount(),8);
+	public void TestGetCalledCount() {
+		Assert.assertEquals(stringcalculator.getCalledCount(),6);
+	}
+	
+	@Test
+	public void TestGreaterThanThousandIgnored() {
+		Assert.assertEquals(stringcalculator.Add("1,2,1001,3,1002"),6);
 	}
 	
 
