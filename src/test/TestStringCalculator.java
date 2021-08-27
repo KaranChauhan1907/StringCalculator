@@ -45,6 +45,8 @@ public class TestStringCalculator {
 	@Test
 	public void AllowDifferentDelimiters() {
 		Assert.assertEquals(stringcalculator.Add("//;\n1;2"), 3);
+		Assert.assertEquals(stringcalculator.Add("//*\n1*2"), 3);
+
 	}
 	
 	@Test
@@ -69,7 +71,7 @@ public class TestStringCalculator {
 	
 	@Test
 	public void TestGetCalledCount() {
-		Assert.assertEquals(stringcalculator.getCalledCount(),6);
+		Assert.assertEquals(stringcalculator.getCalledCount(),8);
 	}
 	
 	@Test
@@ -77,6 +79,10 @@ public class TestStringCalculator {
 		Assert.assertEquals(stringcalculator.Add("1,2,1001,3,1002"),6);
 	}
 	
+	@Test
+	public void TestAnyLengthDelimiter() {
+		Assert.assertEquals(stringcalculator.Add("//[***]\n1***2***3"), 6);
+	}
 
 	
 }

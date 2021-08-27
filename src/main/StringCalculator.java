@@ -1,5 +1,7 @@
 package main;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
 
@@ -36,14 +38,26 @@ public class StringCalculator {
 	
 	private String[] Splitter(String numbers) {
 		String delimiter = ",";
-		
-		if(numbers.matches("/{2}(\\D)\n(.*)")) {
+		String newDelimiter= "";
+		if(numbers.matches("/{2}[^0-9]\n(.*)")) {
 			delimiter = Character.toString(numbers.charAt(2));
 			numbers = numbers.substring(4);
 		}
-		
-		return numbers.split("\n|"+delimiter);
+
+		 int start_index = numbers.indexOf("//[");
+			int end_index = numbers.indexOf("\n");
+			if (start_index != -1){
+					delimiter = numbers.substring(start_index+3,end_index-1);
+					numbers = numbers.substring(end_index+1);
+					Pattern pattern = Pattern.compile("[^0-9]+");
+					Matcher matcher = pattern.matcher(delimiter);
+					if(matcher.find()){
+					    	return numbers.split(pattern.quote(matcher.group()));
+					}
+			}
+		return numbers.split("\n|\\"+delimiter);
 	}
+	
 	
 	private int calculateSumOfNumbers(String []arrayOfNumbers) {
 		int Sum=0;
