@@ -8,14 +8,17 @@ public class StringCalculator {
 			return 0;
 		}
 		else {
-			String delimiter = ",";
-			if (numbers.matches("/{2}\\W\n(.*)")) {
-				delimiter = Character.toString(numbers.charAt(2));
-				numbers = numbers.substring(4);
-			}
-			String[] Splitted_array = numbers.split("\n|"+delimiter);
+			String[] Splitted_array = Splitter(numbers);
 			return calculateSumOfNumbers(Splitted_array);
 		}
+	}
+	private String[] Splitter(String numbers) {
+		String delimiter = ",";
+		if (numbers.matches("/{2}(\\D)\n(.*)")) {
+			delimiter = Character.toString(numbers.charAt(2));
+			numbers = numbers.substring(4);
+		}
+		return numbers.split("\n|"+delimiter);
 	}
 	
 	private int calculateSumOfNumbers(String []arrayOfNumbers) {
