@@ -38,23 +38,37 @@ public class StringCalculator {
 	
 	private String[] Splitter(String numbers) {
 		String delimiter = ",";
-		String newDelimiter= "";
 		if(numbers.matches("/{2}[^0-9]\n(.*)")) {
 			delimiter = Character.toString(numbers.charAt(2));
 			numbers = numbers.substring(4);
 		}
-
-		 int start_index = numbers.indexOf("//[");
-			int end_index = numbers.indexOf("\n");
-			if (start_index != -1){
-					delimiter = numbers.substring(start_index+3,end_index-1);
-					numbers = numbers.substring(end_index+1);
-					Pattern pattern = Pattern.compile("[^0-9]+");
-					Matcher matcher = pattern.matcher(delimiter);
-					if(matcher.find()){
-					    	return numbers.split(pattern.quote(matcher.group()));
-					}
-			}
+        int start_index = numbers.indexOf("//[");
+		int end_index = numbers.indexOf("\n");
+		if (start_index != -1){
+				delimiter = numbers.substring(start_index+2,end_index);
+				numbers = numbers.substring(end_index+1);
+				Pattern pattern = Pattern.compile("[^\\[0-9\\]]+");
+				Matcher matcher = pattern.matcher(delimiter);
+				String groupDelimiter ="";
+			    String differentDelimiter = "";
+                while(matcher.find()){
+                    differentDelimiter = differentDelimiter + matcher.group()+'|';
+                }
+                int j = 0;
+				while(j<differentDelimiter.length()){
+				    if(differentDelimiter.charAt(j) == '|'){
+				        j = j + 1;
+				        groupDelimiter = groupDelimiter + '|';
+				        continue;
+				    }
+				    groupDelimiter = groupDelimiter +"\\" +differentDelimiter.charAt(j);
+				    j = j + 1;
+				}
+				
+				groupDelimiter = groupDelimiter.substring(0,groupDelimiter.length() -1);
+				
+				return numbers.split(groupDelimiter);
+		}
 		return numbers.split("\n|\\"+delimiter);
 	}
 	
