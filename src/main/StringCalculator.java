@@ -7,9 +7,11 @@ public class StringCalculator {
 
 	private static int count=0;
 	
+	
 	public int getCalledCount() {
 		return count;
 	}
+	
 	
 	public int Add(String numbers) {
 		
@@ -24,8 +26,43 @@ public class StringCalculator {
 		}
 	}
 	
-	private void throwExceptionIfNegative(String []arrayOfNumbers) {
+	
+	private String[] Splitter(String numbers) {
 		
+		String delimiter = ",";
+        int start_index = numbers.indexOf("//");
+		int end_index = numbers.indexOf("\n");
+		
+		if (start_index != -1){
+				delimiter = numbers.substring(start_index+2,end_index);
+				numbers = numbers.substring(end_index+1);
+				String finalDelimiters = giveDifferentDelimiters(delimiter,numbers);
+				return numbers.split(finalDelimiters);
+		}
+		
+		return numbers.split("\n|\\"+delimiter);
+	}
+	
+	
+	private String giveDifferentDelimiters(String delimiter,String numbers) {
+		String groupDelimiter = "";
+		String differentDelimiter ="";
+		Pattern pattern = Pattern.compile("[^\\[0-9\\]]+");
+		Matcher matcher = pattern.matcher(delimiter);
+		
+		while (matcher.find()) {
+			groupDelimiter = matcher.group();
+			for(int i=0;i<groupDelimiter.length();i++) {
+				differentDelimiter = differentDelimiter + "\\" + groupDelimiter.charAt(i);
+			}
+			differentDelimiter = differentDelimiter + "|";
+		}
+		
+		return differentDelimiter.substring(0,differentDelimiter.length() -1);
+	}
+	
+	
+	private void throwExceptionIfNegative(String []arrayOfNumbers) {
 		ArrayList<String> negatives = new ArrayList<String>();
 		
 		for(String number : arrayOfNumbers) {
@@ -33,55 +70,20 @@ public class StringCalculator {
 				negatives.add(number);
 		}
 		if(negatives.size()!=0)
-			throw new IllegalArgumentException("negatives not allowed: "+ String.join(",", negatives));
-	}
-	
-	private String[] Splitter(String numbers) {
-		String delimiter = ",";
-		if(numbers.matches("/{2}[^0-9]\n(.*)")) {
-			delimiter = Character.toString(numbers.charAt(2));
-			numbers = numbers.substring(4);
-		}
-        int start_index = numbers.indexOf("//[");
-		int end_index = numbers.indexOf("\n");
-		if (start_index != -1){
-				delimiter = numbers.substring(start_index+2,end_index);
-				numbers = numbers.substring(end_index+1);
-				Pattern pattern = Pattern.compile("[^\\[0-9\\]]+");
-				Matcher matcher = pattern.matcher(delimiter);
-				String groupDelimiter ="";
-			    String differentDelimiter = "";
-                while(matcher.find()){
-                    differentDelimiter = differentDelimiter + matcher.group()+'|';
-                }
-                int j = 0;
-				while(j<differentDelimiter.length()){
-				    if(differentDelimiter.charAt(j) == '|'){
-				        j = j + 1;
-				        groupDelimiter = groupDelimiter + '|';
-				        continue;
-				    }
-				    groupDelimiter = groupDelimiter +"\\" +differentDelimiter.charAt(j);
-				    j = j + 1;
-				}
-				
-				groupDelimiter = groupDelimiter.substring(0,groupDelimiter.length() -1);
-				
-				return numbers.split(groupDelimiter);
-		}
-		return numbers.split("\n|\\"+delimiter);
+				throw new IllegalArgumentException("negatives not allowed: "+ String.join(",", negatives));
 	}
 	
 	
 	private int calculateSumOfNumbers(String []arrayOfNumbers) {
-		int Sum=0;
 		
+		int Sum=0;
 		for(String num : arrayOfNumbers )
 			if(toInt(num)<=1000)
 				Sum = Sum + toInt(num);
 		
 		return Sum;
 	}
+	
 	
 	private int toInt(String numbers) {
 		return Integer.parseInt(numbers);
