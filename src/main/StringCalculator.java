@@ -30,14 +30,14 @@ public class StringCalculator {
 	private String[] Splitter(String numbers) {
 		
 		String delimiter = ",";
-        int start_index = numbers.indexOf("//");
+		int start_index = numbers.indexOf("//");
 		int end_index = numbers.indexOf("\n");
 		
 		if (start_index != -1){
 				delimiter = numbers.substring(start_index+2,end_index);
 				numbers = numbers.substring(end_index+1);
 				String finalDelimiters = giveDifferentDelimiters(delimiter,numbers);
-				return numbers.split(finalDelimiters);
+				return numbers.split("\n|" + finalDelimiters);
 		}
 		
 		return numbers.split("\n|\\"+delimiter);
@@ -57,7 +57,6 @@ public class StringCalculator {
 			}
 			differentDelimiter = differentDelimiter + "|";
 		}
-		
 		return differentDelimiter.substring(0,differentDelimiter.length() -1);
 	}
 	
