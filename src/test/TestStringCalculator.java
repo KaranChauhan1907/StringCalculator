@@ -89,4 +89,9 @@ public class TestStringCalculator {
 		Assert.assertEquals(stringcalculator.Add("//[*][%]\n1*2%3"),6);
 	}
 	
+	@Test 
+	public void TestMultipleAnyLengthDelimiters() {
+		Assert.assertEquals(stringcalculator.Add("//[**][%%]\n1**2%%3"),6);
+	}
+	
 }
